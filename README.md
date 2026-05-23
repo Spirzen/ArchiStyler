@@ -3,6 +3,8 @@
 **ArchiStyler** — настольное приложение для визуального проектирования архитектуры на **C#** и **Java**.  
 Вы рисуете UML-подобную диаграмму классов, задаёте роли и связи, применяете шаблоны паттернов — и получаете готовые исходники с файлами проекта.
 
+![Главное окно ArchiStyler — диаграмма MVP](docs/screenshot.png)
+
 ---
 
 ## Содержание
@@ -85,7 +87,7 @@ dotnet --version
 ### Способ 2 — командная строка
 
 ```powershell
-cd "F:\Projects\C#\ArchiStyler"
+# из корня клонированного репозитория
 dotnet restore
 dotnet run --project src\ArchiStyler\ArchiStyler.csproj
 ```
@@ -411,7 +413,7 @@ ArchiStyler/
 ## Сборка из исходников
 
 ```powershell
-cd "F:\Projects\C#\ArchiStyler"
+# из корня клонированного репозитория
 
 # Восстановление пакетов
 dotnet restore
