@@ -1,0 +1,127 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:ArchiStyler.ViewModels"
+             xmlns:models="using:ArchiStyler.Models"
+             xmlns:h="using:ArchiStyler.Helpers"
+             x:Class="ArchiStyler.Controls.ClassInspectorPanel"
+             x:DataType="vm:MainViewModel"
+             x:CompileBindings="True">
+  <Panel>
+    <TextBlock Text="Выберите класс на диаграмме"
+               IsVisible="{Binding EditingClass, Converter={x:Static ObjectConverters.IsNull}}"
+               Foreground="{DynamicResource BrushMuted}" Margin="8"/>
+
+    <StackPanel Spacing="4" IsVisible="{Binding EditingClass, Converter={x:Static ObjectConverters.IsNotNull}}">
+      <ContentControl Content="{Binding EditingClass}">
+        <ContentControl.ContentTemplate>
+          <DataTemplate x:DataType="models:ClassDefinition">
+            <StackPanel Spacing="4">
+              <TextBox PlaceholderText="Имя класса" Text="{Binding Name}"
+                       ToolTip.Tip="{x:Static h:HelpTexts.ClassName}"/>
+              <TextBlock Classes="hint" Text="Пример: OrderService, UserDto"/>
+
+              <TextBox PlaceholderText="Namespace" Text="{Binding Namespace}"
+                       IsVisible="{Binding $parent[UserControl].((vm:MainViewModel)DataContext).IsCSharp}"
+                       ToolTip.Tip="{x:Static h:HelpTexts.ClassNamespace}"/>
+              <TextBox PlaceholderText="Package" Text="{Binding Package}"
+                       IsVisible="{Binding $parent[UserControl].((vm:MainViewModel)DataContext).IsCSharp, Converter={x:Static BoolConverters.Not}}"
+                       ToolTip.Tip="{x:Static h:HelpTexts.ClassPackage}"/>
+
+              <TextBlock Text="Путь экспорта" Classes="accent" Margin="0,4,0,0"/>
+              <TextBlock Text="{Binding $parent[UserControl].((vm:MainViewModel)DataContext).SelectedNode.ExportPath}"
+                         FontSize="11" TextWrapping="Wrap" Classes="hint"/>
+
+              <TextBox PlaceholderText="Summary" Text="{Binding Summary}"
+                       ToolTip.Tip="{x:Static h:HelpTexts.ClassSummary}"/>
+
+              <StackPanel Spacing="2" Margin="0,4,0,0">
+                <CheckBox Content="interface" IsChecked="{Binding IsInterface}"
+                          ToolTip.Tip="{x:Static h:HelpTexts.IsInterface}"/>
+                <CheckBox Content="abstract" IsChecked="{Binding IsAbstract}"
+                          ToolTip.Tip="{x:Static h:HelpTexts.IsAbstract}"/>
+                <CheckBox Content="enum" IsChecked="{Binding IsEnum}"
+                          ToolTip.Tip="{x:Static h:HelpTexts.IsEnum}"/>
+                <CheckBox Content="sealed" IsChecked="{Binding IsSealed}"
+                          ToolTip.Tip="{x:Static h:HelpTexts.IsSealed}"/>
+              </StackPanel>
+
+              <ComboBox ItemsSource="{Binding $parent[UserControl].((vm:MainViewModel)DataContext).AccessModifiers}"
+                        SelectedItem="{Binding Access}" ToolTip.Tip="{x:Static h:HelpTexts.Access}"/>
+              <TextBox PlaceholderText="Базовый тип" Text="{Binding BaseType}"
+                       ToolTip.Tip="{x:Static h:HelpTexts.BaseType}"/>
+              <TextBlock Classes="hint" Text="Родительский класс. Пример: BaseEntity"/>
+
+              <TextBlock Text="using / import" Classes="accent"/>
+              <TextBox Text="{Binding $parent[UserControl].((vm:MainViewModel)DataContext).NewUsing}"
+                       PlaceholderText="System.Linq" ToolTip.Tip="{x:Static h:HelpTexts.NewUsing}"/>
+              <Button Classes="neon compact" Content="Добавить import" HorizontalAlignment="Stretch"
+                      Command="{Binding $parent[UserControl].((vm:MainViewModel)DataContext).AddUsingCommand}"
+                      ToolTip.Tip="{x:Static h:HelpTexts.AddUsing}"/>
+
+              <ListBox ItemsSource="{Binding Usings}" MaxHeight="72">
+                <ListBox.ItemTemplate>
+                  <DataTemplate>
+                    <Grid ColumnDefinitions="*,Auto">
+                      <TextBlock Grid.Column="0" Text="{Binding}" TextTrimming="CharacterEllipsis"/>
+                      <Button Grid.Column="1" Classes="neon compact" Content="×"
+                              Command="{Binding $parent[UserControl].((vm:MainViewModel)DataContext).RemoveUsingCommand}"
+                              CommandParameter="{Binding}"/>
+                    </Grid>
+                  </DataTemplate>
+                </ListBox.ItemTemplate>
+              </ListBox>
+
+              <TextBlock Text="Члены" Classes="accent" Margin="0,6,0,0"/>
+              <UniformGrid Columns="2" ColumnSpacing="4" RowSpacing="4">
+                <Button Classes="neon compact" Content="Поле"
+                        Command="{Binding $parent[UserControl].((vm:MainViewModel)DataContext).AddMemberFieldCommand}"
+                        ToolTip.Tip="{x:Static h:HelpTexts.MemberField}"/>
+                <Button Classes="neon compact" Content="Свойство"
+                        Command="{Binding $parent[UserControl].((vm:MainViewModel)DataContext).AddMemberPropertyCommand}"
+                        ToolTip.Tip="{x:Static h:HelpTexts.MemberProperty}"/>
+                <Button Classes="neon compact" Content="Метод"
+                        Command="{Binding $parent[UserControl].((vm:MainViewModel)DataContext).AddMemberMethodCommand}"
+                        ToolTip.Tip="{x:Static h:HelpTexts.MemberMethod}"/>
+                <Button Classes="neon compact" Content=".ctor"
+                        Command="{Binding $parent[UserControl].((vm:MainViewModel)DataContext).AddConstructorCommand}"
+                        ToolTip.Tip="{x:Static h:HelpTexts.MemberCtor}"/>
+                <Button Classes="neon compact" Content="Заглушки"
+                        Command="{Binding $parent[UserControl].((vm:MainViewModel)DataContext).AddStubsForAllMethodsCommand}"
+                        ToolTip.Tip="{x:Static h:HelpTexts.MemberStubs}"/>
+              </UniformGrid>
+
+              <ItemsControl ItemsSource="{Binding Members}">
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate x:DataType="models:MemberDefinition">
+                    <Border Classes="card" Margin="0,4" Padding="8">
+                      <StackPanel Spacing="4">
+                        <ComboBox ItemsSource="{Binding $parent[UserControl].((vm:MainViewModel)DataContext).MemberKinds}"
+                                  SelectedItem="{Binding Kind}" HorizontalAlignment="Stretch"
+                                  ToolTip.Tip="{x:Static h:HelpTexts.MemberKind}"/>
+                        <Grid ColumnDefinitions="*,32">
+                          <TextBox Grid.Column="0" Text="{Binding Name}" PlaceholderText="имя"
+                                   ToolTip.Tip="{x:Static h:HelpTexts.MemberName}"/>
+                          <Button Grid.Column="1" Classes="neon compact" Content="×"
+                                  Command="{Binding $parent[UserControl].((vm:MainViewModel)DataContext).RemoveSelectedMemberCommand}"
+                                  CommandParameter="{Binding}"/>
+                        </Grid>
+                        <TextBox Text="{Binding Type}" PlaceholderText="тип"
+                                 ToolTip.Tip="{x:Static h:HelpTexts.MemberType}"/>
+                        <CheckBox Content="заглушка" IsChecked="{Binding GenerateStub}"
+                                  ToolTip.Tip="{x:Static h:HelpTexts.GenerateStub}"/>
+                      </StackPanel>
+                    </Border>
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
+
+              <Button Classes="neon" Content="Удалить класс" HorizontalAlignment="Stretch" Margin="0,8,0,0"
+                      Command="{Binding $parent[UserControl].((vm:MainViewModel)DataContext).DeleteSelectedClassCommand}"
+                      ToolTip.Tip="{x:Static h:HelpTexts.DeleteClass}"/>
+            </StackPanel>
+          </DataTemplate>
+        </ContentControl.ContentTemplate>
+      </ContentControl>
+    </StackPanel>
+  </Panel>
+</UserControl>

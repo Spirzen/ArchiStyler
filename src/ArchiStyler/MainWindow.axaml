@@ -1,0 +1,143 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:ArchiStyler.ViewModels"
+        xmlns:controls="using:ArchiStyler.Controls"
+        xmlns:helpers="using:ArchiStyler.Helpers"
+        x:Class="ArchiStyler.MainWindow"
+        x:Name="RootWindow"
+        x:DataType="vm:MainViewModel"
+        Title="ArchiStyler"
+        Width="1400" Height="900"
+        MinWidth="800" MinHeight="560"
+        WindowStartupLocation="CenterScreen">
+
+  <Grid RowDefinitions="Auto,*,Auto">
+    <Border Grid.Row="0" Classes="panel" Margin="12,12,12,0" Padding="14,10">
+      <DockPanel LastChildFill="True">
+        <WrapPanel DockPanel.Dock="Top" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,8">
+          <Button Classes="neon compact" Content="Справка" Click="OnHelpClick" Margin="4,2"
+                  ToolTip.Tip="Полное руководство ArchiStyler"/>
+          <Button Classes="neon compact" Content="{Binding ThemeButtonLabel}"
+                  Command="{Binding ToggleThemeCommand}" Margin="4,2"
+                  ToolTip.Tip="Светлая / тёмная тема"/>
+          <Button Classes="neon compact" Content="Сохранить" Command="{Binding SaveProjectCommand}" Margin="4,2"
+                  ToolTip.Tip="Файл .archistyler.json в папке проекта"/>
+          <Button Classes="neon-primary compact" Content="Экспорт + проект"
+                  Command="{Binding ExportProjectCommand}" Margin="4,2"
+                  ToolTip.Tip="Исходники + .csproj или pom.xml"/>
+        </WrapPanel>
+        <StackPanel>
+          <TextBlock Text="ArchiStyler" FontSize="18" FontWeight="Bold"
+                     Foreground="{DynamicResource BrushNeonCyan}"/>
+          <TextBlock Text="{Binding ProjectTitle}" Classes="subtitle" Margin="0,4,0,0"/>
+        </StackPanel>
+      </DockPanel>
+    </Border>
+
+    <Grid Grid.Row="1" Margin="12,8,12,8" ColumnDefinitions="200,4,*,4,260">
+      <Border Grid.Column="0" Classes="panel" Padding="10" MinWidth="160">
+        <ScrollViewer Classes="scroll-safe" HorizontalScrollBarVisibility="Disabled"
+                      VerticalScrollBarVisibility="Auto">
+          <StackPanel Spacing="4" Margin="0,0,8,8">
+            <TextBlock Text="Классы" Classes="accent"/>
+            <Button Classes="neon" Content="+ Класс" HorizontalAlignment="Stretch"
+                    Command="{Binding AddClassCommand}" ToolTip.Tip="{x:Static helpers:HelpTexts.AddClass}"/>
+            <Button Classes="neon" Content="+ Папка" HorizontalAlignment="Stretch"
+                    Command="{Binding AddFolderCommand}" ToolTip.Tip="{x:Static helpers:HelpTexts.AddFolder}"/>
+            <TextBlock Classes="hint" Text="Перетащите класс в папку или на корень — путь в коде обновится."/>
+
+            <StackPanel Spacing="4" Margin="0,4,0,0"
+                        IsVisible="{Binding EditingFolder, Converter={x:Static ObjectConverters.IsNotNull}}">
+              <TextBlock Text="Папка" Classes="accent"/>
+              <TextBox Text="{Binding EditingFolder.Name}" PlaceholderText="Имя (Models)"/>
+              <TextBox Text="{Binding EditingFolder.Segment}" PlaceholderText="Сегмент пути"/>
+              <TextBlock Classes="hint" Text="Экспорт: DefaultNamespace + сегменты вложенных папок."/>
+              <Button Classes="neon" Content="Удалить папку" HorizontalAlignment="Stretch"
+                      Command="{Binding DeleteSelectedFolderCommand}"/>
+            </StackPanel>
+
+            <Button Classes="neon" Content="Очистить всё" HorizontalAlignment="Stretch"
+                    Command="{Binding ClearDiagramCommand}" ToolTip.Tip="{x:Static helpers:HelpTexts.ClearDiagram}"/>
+
+            <TextBlock Text="Тип новой связи" FontSize="12" Margin="0,6,0,0"/>
+            <ComboBox ItemsSource="{Binding LinkKindItems}" SelectedItem="{Binding SelectedLinkKindItem}"
+                      HorizontalAlignment="Stretch" ToolTip.Tip="{x:Static helpers:HelpTexts.LinkKind}">
+              <ComboBox.ItemTemplate>
+                <DataTemplate>
+                  <TextBlock Text="{Binding DisplayName}" TextTrimming="CharacterEllipsis"/>
+                </DataTemplate>
+              </ComboBox.ItemTemplate>
+            </ComboBox>
+            <TextBlock Classes="hint" Text="{x:Static helpers:HelpTexts.LinkKindHint}"/>
+
+            <TextBlock Text="Роль" FontSize="12" Margin="0,4,0,0"/>
+            <ComboBox ItemsSource="{Binding RoleItems}" SelectedItem="{Binding SelectedRoleItem}"
+                      HorizontalAlignment="Stretch" ToolTip.Tip="{x:Static helpers:HelpTexts.RoleCombo}">
+              <ComboBox.ItemTemplate>
+                <DataTemplate>
+                  <TextBlock Text="{Binding DisplayName}" TextTrimming="CharacterEllipsis"/>
+                </DataTemplate>
+              </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Button Classes="neon" Content="По роли" HorizontalAlignment="Stretch"
+                    Command="{Binding AddClassByRoleCommand}" ToolTip.Tip="{x:Static helpers:HelpTexts.AddByRole}"/>
+
+            <Separator Margin="0,8"/>
+            <TextBlock Text="Паттерны" Classes="accent"/>
+            <ComboBox ItemsSource="{Binding Patterns}" SelectedItem="{Binding SelectedPattern}"
+                      HorizontalAlignment="Stretch" ToolTip.Tip="{x:Static helpers:HelpTexts.PatternCombo}">
+              <ComboBox.ItemTemplate>
+                <DataTemplate>
+                  <TextBlock Text="{Binding Name}" TextTrimming="CharacterEllipsis"/>
+                </DataTemplate>
+              </ComboBox.ItemTemplate>
+            </ComboBox>
+            <TextBlock Text="{Binding SelectedPattern.Description}" TextWrapping="Wrap"
+                       FontSize="11" MaxHeight="72" Margin="0,0,0,4"/>
+            <Button Classes="neon-primary" Content="Применить" HorizontalAlignment="Stretch"
+                    Command="{Binding ApplyPatternCommand}" ToolTip.Tip="{x:Static helpers:HelpTexts.ApplyPattern}"/>
+          </StackPanel>
+        </ScrollViewer>
+      </Border>
+
+      <GridSplitter Grid.Column="1" ResizeDirection="Columns"/>
+
+      <controls:DiagramSurface x:Name="Diagram" Grid.Column="2" MinWidth="200" MinHeight="200"/>
+
+      <GridSplitter Grid.Column="3" ResizeDirection="Columns"/>
+
+      <Border Grid.Column="4" Classes="panel" Padding="10" MinWidth="220">
+        <TabControl SelectedIndex="{Binding SelectedTabIndex}">
+          <TabItem Header="Класс" ToolTip.Tip="Свойства выбранного класса">
+            <ScrollViewer Classes="scroll-safe" HorizontalScrollBarVisibility="Disabled"
+                          VerticalScrollBarVisibility="Auto">
+              <controls:ClassInspectorPanel DataContext="{Binding}" Margin="0,0,8,8"/>
+            </ScrollViewer>
+          </TabItem>
+          <TabItem Header="Код" ToolTip.Tip="Превью и обратный разбор кода">
+            <StackPanel Spacing="6" Margin="0,0,8,8">
+              <Button Classes="neon compact" Content="Обновить из модели"
+                      Command="{Binding RefreshCodePreviewCommand}"
+                      ToolTip.Tip="{x:Static helpers:HelpTexts.RefreshCode}"/>
+              <TextBlock Classes="hint" Text="Сгенерировать код из диаграммы."/>
+              <Button Classes="neon-primary compact" Content="Применить код → модель"
+                      Command="{Binding ApplyCodeFromPreviewCommand}"
+                      ToolTip.Tip="{x:Static helpers:HelpTexts.ApplyCode}"/>
+              <TextBlock Classes="hint" Text="Парсер обновит имя, члены и import из текста ниже."/>
+              <ScrollViewer Classes="scroll-safe" HorizontalScrollBarVisibility="Auto"
+                            VerticalScrollBarVisibility="Auto" MinHeight="200">
+                <TextBox Text="{Binding CodePreview}" AcceptsReturn="True" MinHeight="240"
+                         FontFamily="Consolas, Courier New, monospace" FontSize="12"/>
+              </ScrollViewer>
+            </StackPanel>
+          </TabItem>
+        </TabControl>
+      </Border>
+    </Grid>
+
+    <Border Grid.Row="2" Margin="12,0,12,12" Padding="10,6" Classes="panel">
+      <TextBlock Text="{Binding StatusMessage}" Foreground="{DynamicResource BrushMuted}"
+                 TextTrimming="CharacterEllipsis"/>
+    </Border>
+  </Grid>
+</Window>

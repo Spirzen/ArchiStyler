@@ -1,0 +1,20 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="ArchiStyler.Controls.RelationPickerFlyout"
+             MaxWidth="280">
+  <Border Classes="panel" Padding="10" BoxShadow="0 4 16 #66000000">
+    <StackPanel Spacing="8">
+      <TextBlock x:Name="TitleText" Text="Тип связи" FontWeight="SemiBold" FontSize="13"/>
+      <ComboBox x:Name="KindCombo" HorizontalAlignment="Stretch"/>
+      <StackPanel x:Name="MemberPanel" Spacing="4" IsVisible="False">
+        <TextBlock x:Name="MemberLabel" FontSize="11" Classes="hint"/>
+        <ComboBox x:Name="MemberCombo" HorizontalAlignment="Stretch" PlaceholderText="Существующий…"/>
+        <TextBox x:Name="NewMemberBox" PlaceholderText="Или новое имя…"/>
+      </StackPanel>
+      <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right">
+        <Button x:Name="CancelButton" Classes="neon compact" Content="Отмена" MinWidth="72"/>
+        <Button x:Name="OkButton" Classes="neon-primary compact" Content="Создать" MinWidth="72"/>
+      </StackPanel>
+    </StackPanel>
+  </Border>
+</UserControl>

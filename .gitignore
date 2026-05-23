@@ -1,0 +1,141 @@
+# =============================================================================
+# ArchiStyler — безопасный .gitignore для .NET / Avalonia / Windows
+# =============================================================================
+
+# --- Сборка .NET ----------------------------------------------------------------
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+[Rr]elease/
+[Dd]ebug/
+[Aa]rtifacts/
+publish/
+*.dll
+*.exe
+*.pdb
+*.cache
+*.ilk
+*.meta
+*.obj
+*.iobj
+*.ipdb
+*.rsp
+*.sbr
+*.tlb
+*.tli
+*.tlh
+*.tmp
+*.tmp_proj
+*.log
+*.vspscc
+*.vssscc
+.builds
+*.pidb
+*.svclog
+*.scc
+project.lock.json
+project.fragment.lock.json
+
+# --- NuGet --------------------------------------------------------------------
+*.nupkg
+*.snupkg
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+*.nuget.props
+*.nuget.targets
+.nuget/
+
+# --- IDE: Visual Studio -------------------------------------------------------
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.rsuser
+*.VC.db
+*.VC.VC.opendb
+*.DotSettings.user
+
+# --- IDE: JetBrains Rider -----------------------------------------------------
+.idea/
+*.sln.iml
+
+# --- IDE: VS Code (локальные настройки пользователя) --------------------------
+.vscode/*
+!.vscode/extensions.json
+!.vscode/tasks.json
+!.vscode/launch.json
+
+# --- Тесты и покрытие ---------------------------------------------------------
+[Tt]est[Rr]esult*/
+[Bb]uild[Ll]og.*
+*.VisualState.xml
+TestResult.xml
+nunit-*.xml
+coverage/
+*.coverage
+*.coveragexml
+*.lcov
+BenchmarkDotNet.Artifacts/
+
+# --- OS: Windows --------------------------------------------------------------
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+*.lnk
+
+# --- OS: macOS / Linux (если репозиторий клонируют на других ОС) -------------
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+
+# --- Секреты и конфиденциальные данные (НИКОГДА не коммитить) ----------------
+.env
+.env.*
+!.env.example
+*.pfx
+*.p12
+*.key
+*.pem
+*.cer
+*.crt
+secrets.json
+**/appsettings.Development.json
+**/appsettings.Local.json
+**/appsettings.*.local.json
+credentials.json
+*.secret
+*.secrets
+
+# --- ArchiStyler: пользовательские проекты и артефакты ----------------------
+# Сохранённые диаграммы и экспортированный код — локальные рабочие файлы
+*.archistyler.json
+crash.log
+**/crash.log
+
+# --- Прочее -------------------------------------------------------------------
+*.bak
+*.swp
+*.swo
+*.orig
+*.rej
+~$*
+*.db
+*.sqlite
+*.sqlite3

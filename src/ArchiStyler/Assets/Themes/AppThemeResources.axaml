@@ -1,0 +1,183 @@
+<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <Styles.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.ThemeDictionaries>
+        <!-- Dark neon -->
+        <ResourceDictionary x:Key="Dark">
+          <Color x:Key="BgDeep">#0c0e16</Color>
+          <Color x:Key="BgPanel">#131825</Color>
+          <Color x:Key="BgCard">#1a2236</Color>
+          <Color x:Key="BgInput">#0f1524</Color>
+          <Color x:Key="BgCanvas">#0a0d14</Color>
+          <Color x:Key="AccentPrimary">#6ee7d7</Color>
+          <Color x:Key="AccentSecondary">#e9b4f8</Color>
+          <Color x:Key="AccentTertiary">#b4a7f8</Color>
+          <Color x:Key="TextPrimary">#e8edf7</Color>
+          <Color x:Key="TextMuted">#94a3b8</Color>
+          <Color x:Key="BorderSoft">#2d3a55</Color>
+          <Color x:Key="BtnBg">#1e2a42</Color>
+          <Color x:Key="BtnBgHover">#243352</Color>
+          <Color x:Key="BtnPrimaryBg">#1a3d38</Color>
+          <Color x:Key="ArrowInherit">#6ee7d7</Color>
+          <Color x:Key="ArrowImplement">#b4a7f8</Color>
+          <Color x:Key="ArrowUse">#94a3b8</Color>
+          <BoxShadows x:Key="GlowCard">0 0 18 2 #336ee7d7</BoxShadows>
+        </ResourceDictionary>
+        <!-- Light soft -->
+        <ResourceDictionary x:Key="Light">
+          <Color x:Key="BgDeep">#f4f6fb</Color>
+          <Color x:Key="BgPanel">#ffffff</Color>
+          <Color x:Key="BgCard">#f8fafc</Color>
+          <Color x:Key="BgInput">#ffffff</Color>
+          <Color x:Key="BgCanvas">#eef2f8</Color>
+          <Color x:Key="AccentPrimary">#0d9488</Color>
+          <Color x:Key="AccentSecondary">#9333ea</Color>
+          <Color x:Key="AccentTertiary">#6366f1</Color>
+          <Color x:Key="TextPrimary">#1e293b</Color>
+          <Color x:Key="TextMuted">#64748b</Color>
+          <Color x:Key="BorderSoft">#cbd5e1</Color>
+          <Color x:Key="BtnBg">#f1f5f9</Color>
+          <Color x:Key="BtnBgHover">#e2e8f0</Color>
+          <Color x:Key="BtnPrimaryBg">#ccfbf1</Color>
+          <Color x:Key="ArrowInherit">#0d9488</Color>
+          <Color x:Key="ArrowImplement">#6366f1</Color>
+          <Color x:Key="ArrowUse">#64748b</Color>
+          <BoxShadows x:Key="GlowCard">0 2 12 0 #1a000000</BoxShadows>
+        </ResourceDictionary>
+      </ResourceDictionary.ThemeDictionaries>
+    </ResourceDictionary>
+
+    <SolidColorBrush x:Key="BrushBgDeep" Color="{DynamicResource BgDeep}"/>
+    <SolidColorBrush x:Key="BrushBgPanel" Color="{DynamicResource BgPanel}"/>
+    <SolidColorBrush x:Key="BrushBgCard" Color="{DynamicResource BgCard}"/>
+    <SolidColorBrush x:Key="BrushBgInput" Color="{DynamicResource BgInput}"/>
+    <SolidColorBrush x:Key="BrushBgCanvas" Color="{DynamicResource BgCanvas}"/>
+    <SolidColorBrush x:Key="BrushNeonCyan" Color="{DynamicResource AccentPrimary}"/>
+    <SolidColorBrush x:Key="BrushNeonPink" Color="{DynamicResource AccentSecondary}"/>
+    <SolidColorBrush x:Key="BrushNeonLavender" Color="{DynamicResource AccentTertiary}"/>
+    <SolidColorBrush x:Key="BrushText" Color="{DynamicResource TextPrimary}"/>
+    <SolidColorBrush x:Key="BrushMuted" Color="{DynamicResource TextMuted}"/>
+    <SolidColorBrush x:Key="BrushBorder" Color="{DynamicResource BorderSoft}"/>
+    <SolidColorBrush x:Key="BrushArrowInherit" Color="{DynamicResource ArrowInherit}"/>
+    <SolidColorBrush x:Key="BrushArrowImplement" Color="{DynamicResource ArrowImplement}"/>
+    <SolidColorBrush x:Key="BrushArrowUse" Color="{DynamicResource ArrowUse}"/>
+  </Styles.Resources>
+
+  <Style Selector="Window">
+    <Setter Property="Background" Value="{DynamicResource BrushBgDeep}"/>
+    <Setter Property="Foreground" Value="{DynamicResource BrushText}"/>
+    <Setter Property="FontFamily" Value="Inter, Segoe UI, sans-serif"/>
+    <Setter Property="MinWidth" Value="720"/>
+    <Setter Property="MinHeight" Value="480"/>
+  </Style>
+
+  <Style Selector="Border.panel">
+    <Setter Property="Background" Value="{DynamicResource BrushBgPanel}"/>
+    <Setter Property="BorderBrush" Value="{DynamicResource BrushBorder}"/>
+    <Setter Property="BorderThickness" Value="1"/>
+    <Setter Property="CornerRadius" Value="12"/>
+  </Style>
+
+  <Style Selector="Border.card">
+    <Setter Property="Background" Value="{DynamicResource BrushBgCard}"/>
+    <Setter Property="BorderBrush" Value="{DynamicResource BrushBorder}"/>
+    <Setter Property="BorderThickness" Value="1"/>
+    <Setter Property="CornerRadius" Value="10"/>
+    <Setter Property="BoxShadow" Value="{DynamicResource GlowCard}"/>
+  </Style>
+
+  <Style Selector="Button.neon">
+    <Setter Property="Background" Value="{DynamicResource BtnBg}"/>
+    <Setter Property="Foreground" Value="{DynamicResource BrushText}"/>
+    <Setter Property="BorderBrush" Value="{DynamicResource BrushNeonCyan}"/>
+    <Setter Property="BorderThickness" Value="1"/>
+    <Setter Property="CornerRadius" Value="8"/>
+    <Setter Property="Padding" Value="10,6"/>
+    <Setter Property="MinHeight" Value="32"/>
+    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+    <Setter Property="VerticalContentAlignment" Value="Center"/>
+    <Setter Property="Cursor" Value="Hand"/>
+  </Style>
+  <Style Selector="Button.neon:pointerover">
+    <Setter Property="Background" Value="{DynamicResource BtnBgHover}"/>
+    <Setter Property="BorderBrush" Value="{DynamicResource BrushNeonPink}"/>
+  </Style>
+
+  <Style Selector="Button.neon-primary">
+    <Setter Property="Background" Value="{DynamicResource BtnPrimaryBg}"/>
+    <Setter Property="Foreground" Value="{DynamicResource BrushText}"/>
+    <Setter Property="BorderBrush" Value="{DynamicResource BrushNeonCyan}"/>
+    <Setter Property="BorderThickness" Value="1"/>
+    <Setter Property="CornerRadius" Value="8"/>
+    <Setter Property="Padding" Value="12,8"/>
+    <Setter Property="MinHeight" Value="36"/>
+    <Setter Property="FontWeight" Value="SemiBold"/>
+    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+  </Style>
+
+  <Style Selector="Button.compact">
+    <Setter Property="Padding" Value="8,4"/>
+    <Setter Property="MinHeight" Value="28"/>
+    <Setter Property="FontSize" Value="12"/>
+  </Style>
+
+  <Style Selector="TextBox, ComboBox">
+    <Setter Property="Background" Value="{DynamicResource BrushBgInput}"/>
+    <Setter Property="Foreground" Value="{DynamicResource BrushText}"/>
+    <Setter Property="BorderBrush" Value="{DynamicResource BrushBorder}"/>
+    <Setter Property="CornerRadius" Value="6"/>
+    <Setter Property="MinHeight" Value="32"/>
+  </Style>
+
+  <Style Selector="CheckBox">
+    <Setter Property="Foreground" Value="{DynamicResource BrushText}"/>
+    <Setter Property="Margin" Value="0,4"/>
+    <Setter Property="MinHeight" Value="28"/>
+  </Style>
+
+  <Style Selector="TabItem">
+    <Setter Property="Foreground" Value="{DynamicResource BrushMuted}"/>
+  </Style>
+  <Style Selector="TabItem:selected">
+    <Setter Property="Foreground" Value="{DynamicResource BrushNeonCyan}"/>
+  </Style>
+
+  <Style Selector="TextBlock.title">
+    <Setter Property="FontSize" Value="26"/>
+    <Setter Property="FontWeight" Value="Bold"/>
+    <Setter Property="Foreground" Value="{DynamicResource BrushNeonCyan}"/>
+  </Style>
+  <Style Selector="TextBlock.subtitle">
+    <Setter Property="FontSize" Value="13"/>
+    <Setter Property="Foreground" Value="{DynamicResource BrushMuted}"/>
+    <Setter Property="TextWrapping" Value="Wrap"/>
+  </Style>
+  <Style Selector="TextBlock.accent">
+    <Setter Property="Foreground" Value="{DynamicResource BrushNeonLavender}"/>
+    <Setter Property="FontWeight" Value="SemiBold"/>
+  </Style>
+
+  <Style Selector="GridSplitter">
+    <Setter Property="Background" Value="{DynamicResource BrushBorder}"/>
+    <Setter Property="Width" Value="4"/>
+  </Style>
+
+  <Style Selector="TextBlock.hint">
+    <Setter Property="FontSize" Value="10"/>
+    <Setter Property="Foreground" Value="{DynamicResource BrushMuted}"/>
+    <Setter Property="TextWrapping" Value="Wrap"/>
+    <Setter Property="Margin" Value="0,-2,0,10"/>
+    <Setter Property="Opacity" Value="0.92"/>
+  </Style>
+
+  <Style Selector="ScrollViewer.scroll-safe">
+    <Setter Property="Padding" Value="4"/>
+  </Style>
+  <Style Selector="ScrollViewer.scroll-safe /template/ ScrollContentPresenter#PART_ContentPresenter">
+    <Setter Property="Padding" Value="0,0,14,14"/>
+  </Style>
+  <Style Selector="ScrollViewer.diagram-scroller /template/ ScrollContentPresenter#PART_ContentPresenter">
+    <Setter Property="Padding" Value="0,0,12,12"/>
+  </Style>
+</Styles>

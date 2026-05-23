@@ -1,0 +1,92 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+
+             xmlns:controls="using:ArchiStyler.Controls"
+
+             x:Class="ArchiStyler.Controls.DiagramSurface"
+
+             Focusable="True">
+
+  <Grid>
+
+    <ScrollViewer x:Name="Scroller"
+
+                  Classes="scroll-safe diagram-scroller"
+
+                  HorizontalScrollBarVisibility="Auto"
+
+                  VerticalScrollBarVisibility="Auto"
+
+                  Background="{DynamicResource BrushBgCanvas}">
+
+      <Grid x:Name="ZoomExtent" HorizontalAlignment="Left" VerticalAlignment="Top">
+
+        <Canvas x:Name="RootCanvas" Background="{DynamicResource BrushBgCanvas}"/>
+
+      </Grid>
+
+    </ScrollViewer>
+
+
+
+    <Border Classes="panel" VerticalAlignment="Top" HorizontalAlignment="Right"
+
+            Margin="10" Padding="8,6" Opacity="0.95" MaxWidth="200">
+
+      <StackPanel Spacing="6">
+
+        <StackPanel Orientation="Horizontal" Spacing="4" HorizontalAlignment="Center">
+
+          <Button x:Name="ZoomInButton" Classes="neon compact" Content="+" MinWidth="40" MinHeight="32"
+
+                  Padding="10,4" ToolTip.Tip="Увеличить (Ctrl + колёсико вверх)"/>
+
+          <Button x:Name="ZoomOutButton" Classes="neon compact" Content="−" MinWidth="40" MinHeight="32"
+
+                  Padding="10,4" ToolTip.Tip="Уменьшить (Ctrl + колёсико вниз)"/>
+
+        </StackPanel>
+
+        <Button x:Name="ZoomResetButton" Classes="neon compact" MinWidth="88" MinHeight="28"
+
+                Padding="8,4" HorizontalAlignment="Stretch"
+
+                HorizontalContentAlignment="Center"
+
+                ToolTip.Tip="Сбросить масштаб до 100%"/>
+
+        <TextBlock x:Name="ZoomLabel" HorizontalAlignment="Center" FontSize="11"
+
+                   TextAlignment="Center" TextWrapping="Wrap"
+
+                   Foreground="{DynamicResource BrushMuted}"/>
+
+      </StackPanel>
+
+    </Border>
+
+
+
+    <controls:RelationPickerFlyout x:Name="RelationPicker" IsVisible="False"
+
+                                   VerticalAlignment="Top" HorizontalAlignment="Left"
+
+                                   Margin="0" ZIndex="50"/>
+
+
+
+    <Border Background="#88000000" VerticalAlignment="Bottom" HorizontalAlignment="Stretch"
+
+            Margin="8" Padding="8,6" CornerRadius="8" ZIndex="10">
+
+      <TextBlock x:Name="NavHint" TextWrapping="Wrap" FontSize="11"
+
+                 Foreground="{DynamicResource BrushText}"/>
+
+    </Border>
+
+  </Grid>
+
+</UserControl>
+

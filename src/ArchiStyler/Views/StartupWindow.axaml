@@ -1,0 +1,60 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:ArchiStyler.ViewModels"
+        xmlns:h="using:ArchiStyler.Helpers"
+        x:Class="ArchiStyler.Views.StartupWindow"
+        x:DataType="vm:StartupViewModel"
+        Title="ArchiStyler — новый проект"
+        Width="560" Height="640"
+        MinWidth="360" MinHeight="480"
+        WindowStartupLocation="CenterScreen"
+        CanResize="True">
+
+  <ScrollViewer Classes="scroll-safe" HorizontalScrollBarVisibility="Disabled"
+                VerticalScrollBarVisibility="Auto" Padding="24">
+    <StackPanel MaxWidth="520" Spacing="0" Margin="0,0,12,12">
+      <StackPanel Spacing="6" Margin="0,0,0,20">
+        <TextBlock Classes="title" Text="ArchiStyler"/>
+        <TextBlock Classes="subtitle"
+                   Text="Быстрое прототипирование архитектуры для C# и Java"/>
+      </StackPanel>
+
+      <Border Classes="panel" Padding="20">
+        <StackPanel Spacing="10">
+          <TextBlock Classes="accent" Text="1. Язык"/>
+          <ComboBox ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedLanguage}"
+                    HorizontalAlignment="Stretch" ToolTip.Tip="{x:Static h:HelpTexts.StartupLanguage}"/>
+          <TextBlock Classes="hint" Text="{x:Static h:HelpTexts.StartupLanguageHint}"/>
+
+          <TextBlock Classes="accent" Text="2. Имя архитектуры"/>
+          <TextBox Text="{Binding ProjectName}" PlaceholderText="MyArchitecture"
+                   ToolTip.Tip="{x:Static h:HelpTexts.StartupProjectName}"/>
+
+          <TextBlock Classes="accent" Text="3. Папка проекта"/>
+          <TextBox Text="{Binding RootPath}" PlaceholderText="C:\Projects\MyApp"
+                   ToolTip.Tip="{x:Static h:HelpTexts.StartupFolder}"/>
+          <Button Classes="neon" Content="Обзор папки…" HorizontalAlignment="Stretch"
+                  Click="OnBrowseClick"/>
+
+          <StackPanel IsVisible="{Binding ShowsNamespace}" Spacing="4">
+            <TextBlock Classes="accent" Text="Namespace (C#)"/>
+            <TextBox Text="{Binding DefaultNamespace}" ToolTip.Tip="{x:Static h:HelpTexts.StartupNamespace}"/>
+          </StackPanel>
+          <StackPanel IsVisible="{Binding ShowsPackage}" Spacing="4">
+            <TextBlock Classes="accent" Text="Package (Java)"/>
+            <TextBox Text="{Binding DefaultPackage}" ToolTip.Tip="{x:Static h:HelpTexts.StartupPackage}"/>
+          </StackPanel>
+
+          <TextBlock Text="{Binding StatusMessage}" Foreground="{DynamicResource BrushNeonPink}"
+                     TextWrapping="Wrap"/>
+        </StackPanel>
+      </Border>
+
+      <Button Classes="neon-primary" Margin="0,20,0,12"
+              HorizontalAlignment="Stretch"
+              Content="Открыть конструктор →"
+              Click="OnStartClick"
+              ToolTip.Tip="Создать проект и открыть редактор диаграммы"/>
+    </StackPanel>
+  </ScrollViewer>
+</Window>

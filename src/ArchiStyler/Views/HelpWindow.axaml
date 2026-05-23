@@ -1,0 +1,16 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="ArchiStyler.Views.HelpWindow"
+        Title="Справка — ArchiStyler"
+        Width="720" Height="640"
+        MinWidth="480" MinHeight="400"
+        WindowStartupLocation="CenterOwner">
+  <DockPanel Margin="16">
+    <TextBlock DockPanel.Dock="Top" Text="Справка ArchiStyler" Classes="title" Margin="0,0,0,12"/>
+    <Button DockPanel.Dock="Bottom" Classes="neon-primary" Content="Закрыть"
+            HorizontalAlignment="Right" Margin="0,12,0,0" Click="OnCloseClick"/>
+    <ScrollViewer Classes="scroll-safe" HorizontalScrollBarVisibility="Disabled">
+      <TextBlock x:Name="HelpContent" TextWrapping="Wrap" LineHeight="22" Margin="0,0,12,12"/>
+    </ScrollViewer>
+  </DockPanel>
+</Window>

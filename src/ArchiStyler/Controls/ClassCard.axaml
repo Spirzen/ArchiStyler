@@ -1,0 +1,29 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:ArchiStyler.ViewModels"
+             x:Class="ArchiStyler.Controls.ClassCard"
+             x:DataType="vm:ClassNodeViewModel"
+             Width="200" MinHeight="90">
+  <Border x:Name="CardBorder" Classes="card" Padding="10">
+    <Border.Styles>
+      <Style Selector="Border#CardBorder">
+        <Setter Property="BorderBrush" Value="{DynamicResource BrushBorder}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+      </Style>
+      <Style Selector="Border#CardBorder.selected">
+        <Setter Property="BorderBrush" Value="{DynamicResource BrushNeonPink}"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="BoxShadow" Value="0 0 20 3 #55e9b4f8"/>
+      </Style>
+    </Border.Styles>
+    <StackPanel Spacing="4">
+      <TextBlock Text="{Binding Title}" FontWeight="Bold" FontSize="14"
+                 Foreground="{DynamicResource BrushNeonCyan}"/>
+      <TextBlock Text="{Binding Subtitle}" FontSize="11"
+                 Foreground="{DynamicResource BrushMuted}"/>
+      <Separator Margin="0,4" Background="{DynamicResource BrushBorder}"/>
+      <TextBlock Text="{Binding MembersPreview}" FontSize="10"
+                 FontFamily="Consolas, Courier New, monospace"/>
+    </StackPanel>
+  </Border>
+</UserControl>
