@@ -477,7 +477,7 @@ dotnet publish src\ArchiStyler\ArchiStyler.csproj -c Release -r win-x64 --self-c
 
 ## Лицензия
 
-Уточните лицензию для вашего репозитория (MIT, Apache-2.0 и т.д.) — файл `LICENSE` пока не добавлен.
+Проект распространяется под лицензией [MIT](LICENSE).
 
 ---
 
